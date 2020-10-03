@@ -7,6 +7,7 @@ from sklearn.linear_model import LinearRegression
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import style
+import pickle
 
 style.use('ggplot')
 
@@ -40,6 +41,11 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, shuffle
 
 clf = LinearRegression(n_jobs=-1)
 clf.fit(X_train, y_train)
+with open('linearregression.pickle', 'wb') as f:
+    pickle.dump(clf, f)
+
+# pickle_in = open('linearregression.pickle', 'rb')
+# clf = pickle.load(pickle_in)
 
 accuracy = clf.score(X_test, y_test)
 
