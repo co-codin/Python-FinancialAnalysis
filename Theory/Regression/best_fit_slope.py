@@ -6,11 +6,17 @@ xs = np.array([1,2,3,4,5,6], dtype=np.float)
 ys = np.array([5,4,6,5,6,7], dtype=np.float)
 
 
-def best_fit_slope(xs, ys):
+def best_fit_slope_and_intercept(xs, ys):
     m = ( ((mean(xs) * mean(ys)) - mean(xs*ys)) /
           ((mean(xs)**2) - mean(xs**2))
           )
-    return m
+    b = mean(ys) - m*mean(xs)
+    return m, b
 
-m = best_fit_slope(xs, ys)
-print(m)
+m, b = best_fit_slope_and_intercept(xs, ys)
+
+regression_line = [(m*x)+b for x in xs]
+
+plt.scatter(xs, ys)
+plt.plot(xs, regression_line)
+plt.show()
