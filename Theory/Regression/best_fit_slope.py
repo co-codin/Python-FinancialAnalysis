@@ -1,10 +1,19 @@
 from statistics import mean
 import numpy as np
 import matplotlib.pyplot as plt
+import random
 
 xs = np.array([1,2,3,4,5,6], dtype=np.float)
 ys = np.array([5,4,6,5,6,7], dtype=np.float)
 
+def create_dataset(hm, variance, step=2, correlation=False):
+    val = 1
+    ys = []
+    for i in range(hm):
+        y = val + random.randrange(-variance, variance)
+        ys.append(y)
+
+    return np.array(xs, dtype=np.float), np.array(ys, dtype=np.float)
 
 def best_fit_slope_and_intercept(xs, ys):
     m = ( ((mean(xs) * mean(ys)) - mean(xs*ys)) /
