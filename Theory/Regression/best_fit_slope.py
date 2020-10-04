@@ -3,8 +3,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import random
 
-xs = np.array([1,2,3,4,5,6], dtype=np.float)
-ys = np.array([5,4,6,5,6,7], dtype=np.float)
+# xs = np.array([1,2,3,4,5,6], dtype=np.float)
+# ys = np.array([5,4,6,5,6,7], dtype=np.float)
 
 def create_dataset(hm, variance, step=2, correlation=False):
     val = 1
@@ -13,6 +13,11 @@ def create_dataset(hm, variance, step=2, correlation=False):
         y = val + random.randrange(-variance, variance)
         ys.append(y)
 
+        if correlation and correlation == 'pos':
+            val += step
+        elif correlation and correlation == 'neg':
+            val -= step
+    xs = [i for i in range(len(ys))]
     return np.array(xs, dtype=np.float), np.array(ys, dtype=np.float)
 
 def best_fit_slope_and_intercept(xs, ys):
@@ -30,6 +35,8 @@ def coefficient_of_determination(ys_orig, ys_line):
     squared_error_regr = squared_error(ys_orig, ys_line)
     squared_error_y_mean = squared_error(ys_orig, y_mean_line)
     return 1 - (squared_error_regr / squared_error_y_mean)
+
+xs, ys = create_dataset(40, 40, 2, correlation='pos')
 
 m, b = best_fit_slope_and_intercept(xs, ys)
 
