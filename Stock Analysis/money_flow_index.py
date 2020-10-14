@@ -26,3 +26,25 @@ money_flow = typical_price * df['Volume']
 
 positive_flow = []
 negative_flow = []
+
+for i in range(1, len(typical_price)):
+    if typical_price[i] > typical_price[i-1]:
+        positive_flow.append(money_flow[i-1])
+        negative_flow.append(0)
+    elif typical_price[i] < typical_price[i-1]:
+        positive_flow.append(0)
+        negative_flow.append(money_flow[i - 1])
+    else:
+        positive_flow.append(0)
+        negative_flow.append(0)
+
+positive_mf = []
+negative_mf = []
+
+for i in range(period-1, len(positive_flow)):
+    positive_mf.append( sum(positive_flow[i-period+1:i+1]) )
+
+for i in range(period-1, len(negative_flow)):
+    negative_mf.append( sum(negative_flow[i-period+1:i+1]) )
+
+# mfi = 100 * 
