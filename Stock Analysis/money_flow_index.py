@@ -47,4 +47,19 @@ for i in range(period-1, len(positive_flow)):
 for i in range(period-1, len(negative_flow)):
     negative_mf.append( sum(negative_flow[i-period+1:i+1]) )
 
-# mfi = 100 * 
+mfi = 100 * (np.array(positive_mf) / (np.array(positive_mf) + np.array(negative_mf)))
+
+# visualization
+df2 = pd.DataFrame()
+df2['MFI'] = mfi
+
+plt.figure(figsize=(12.2, 4.5))
+plt.plot(df2['MFI'], label='df2')
+plt.axhline(10, linestyle='--', color='orange')
+plt.axhline(20, linestyle='--', color='blue')
+plt.axhline(80, linestyle='--', color='blue')
+plt.axhline(90, linestyle='--', color='orange')
+plt.title('MFI')
+plt.ylabel('MFI Values')
+plt.legend(df.columns.values, loc='upper left')
+plt.show()
