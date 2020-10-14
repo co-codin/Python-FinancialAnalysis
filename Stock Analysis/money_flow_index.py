@@ -17,3 +17,12 @@ plt.xlabel('Date')
 plt.ylabel('Price')
 plt.legend(df.columns.values, loc='upper left')
 plt.show()
+
+typical_price = (df['Close'] + df['High'] + df['Low']) / 3
+
+period = 14
+
+money_flow = typical_price * df['Volume']
+
+positive_flow = []
+negative_flow = []
