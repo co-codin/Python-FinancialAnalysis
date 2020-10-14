@@ -3,7 +3,7 @@ from sklearn import preprocessing, neighbors, svm
 from sklearn.model_selection import train_test_split
 import pandas as pd
 
-df = pd.read_csv('breast-cancer-wisconsin.data.txt')
+df = pd.read_csv('./datasets/breast-cancer-wisconsin.data')
 df.replace('?',-99999, inplace=True)
 df.drop(['id'], 1, inplace=True)
 
