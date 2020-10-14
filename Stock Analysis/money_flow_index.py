@@ -63,3 +63,39 @@ plt.title('MFI')
 plt.ylabel('MFI Values')
 plt.legend(df.columns.values, loc='upper left')
 plt.show()
+
+new_df = pd.DataFrame()
+new_df = df[period:]
+new_df['MFI'] = mfi
+
+# get buy and sell signals
+def get_signal(data, high, low):
+    buy_signal = []
+    sell_signal = []
+
+    for i in range(len(data['MFI'])):
+        if data['MFI'][i] > high:
+            buy_signal.append(np.nan)
+            sell_signal.append(data['Close'][i])
+        elif data['MFI'][i] < low:
+            buy_signal.append(data['Close'][i])
+            sell_signal.append(np.nan)
+        else:
+            buy_signal.append(np.nan)
+            sell_signal.append(np.nan)
+    return  (buy_signal, sell_signal)
+
+new_df['Buy'] = get_signal(new_df, 80, 20)[0]
+new_df['Sell'] = get_signal(new_df, 80, 20)[1]
+
+
+# visualizing signals
+plt.figure(figsize=(12.2, 4.5))
+plt.plot(new_df['Close'], label='Close Price', alpha=0.5)
+plt.scatter(new_df.index, new_df['Buy'], color='green', label='Buy Signal', marker='^', alpha=1)
+plt.scatter(new_df.index, new_df['Sell'], color='red', label='Sell Signal', marker='v', alpha=1)
+plt.title('Apple Close Price')
+plt.xlabel('Date')
+plt.ylabel('Price')
+plt.legend(loc='upper left')
+plt.show()
